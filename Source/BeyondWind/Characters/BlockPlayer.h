@@ -4,17 +4,43 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/TimelineComponent.h"
 #include "BlockPlayer.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
 class APlayerController;
 class ABaseBlock;
-
+class UCurveFloat;
+class ACrossAirHud;
+class USoundWave;
+class UAnimMontage;
 UCLASS()
 class BEYONDWIND_API ABlockPlayer : public ACharacter
 {
 	GENERATED_BODY()
+
+private:
+	//======================Internal variables and functions
+	FTimeline m_TimeLine;
+	FTimerHandle m_PlaceTimer;
+	FTimerHandle m_RemoveTimer;
+	UCurveFloat* m_RotatingCurve;
+	FVector m_VCurrentAttachLoc;
+
+	//Same as PlaceBlockDown from BP
+	void StartPlacingBlocks();
+
+	void StopPlacingBlocks();
+
+
+	void StartRemovingBlocks();
+	void StopRemovingBlocks();
+
+	UFUNCTION()
+	void OnBlendOut(UAnimMontage* AnimM, bool bInterrupted);
+
+	void RotatingFunction(float alpha);
 
 public:
 	// Sets default values for this character's properties
@@ -45,7 +71,10 @@ public:
 	float m_fFurthestDistanceToClick;
 
 	APlayerController* PlayerControllerRef;
-
+	ACrossAirHud* m_pCrossAir;
+	USoundWave* m_pSound;
+	USoundWave* m_pRemoveBlockSound;
+	UAnimMontage* m_pAnimMontage;
 
 protected:
 	// Called when the game starts or when spawned
@@ -58,7 +87,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	void GetCrossAirLocation(FVector& _CrossAirLoc);
+	void GetCrossAirLocation(FVector& CrossAirLoc_);
 	bool GetClickOnBlock(const FVector& _Target, FVector& Location_, FVector& Normal_, ABaseBlock* HitBlock_);
 	
 	//Functions for Action and Axis Inputs
