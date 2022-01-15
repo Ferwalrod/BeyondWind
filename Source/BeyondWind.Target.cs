@@ -9,6 +9,6 @@ public class BeyondWindTarget : TargetRules
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "BeyondWind" } );
+		ExtraModuleNames.AddRange( new string[] { "BeyondWind","Automatinator","BeyondWindEditor" } );
 	}
 }

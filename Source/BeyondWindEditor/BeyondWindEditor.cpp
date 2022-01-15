@@ -3,11 +3,15 @@
 #include "BeyondWindEditor.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_GAME_MODULE(FBeyondWindEditorModule,BeyondWindEditor)
 
-void FBeyondWindEditorModule::StartupModule() {
 
-}
-void FBeyondWindEditorModule::ShutdownModule() {
+void FBeyondWindEditorModule::StartupModule()
+{
 
 }
+
+void FBeyondWindEditorModule::ShutdownModule()
+{
+
+}
+IMPLEMENT_MODULE(FBeyondWindEditorModule, BeyondWindEditor);
