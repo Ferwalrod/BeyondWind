@@ -10,7 +10,6 @@ public class BeyondWindEditor: ModuleRules
 
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "Slate", "SlateCore" });
 		//PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","UnrealEd", "HeadMountedDisplay" });
-		//PublicDependencyModuleNames.Add("BeyondWind");
 		//PublicDependencyModuleNames.AddRange(new string[] { "UnrealEd", "XmlParser", "EditorStyle", "Slate", "SlateCore", "GraphEditor", "AppFramework", "PropertyEditor" });
 		//PrivateDependencyModuleNames.AddRange(new string[] {  });
 

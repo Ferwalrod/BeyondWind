@@ -11,19 +11,22 @@
 			"AdditionalDependencies": [
 				"Engine"
 			]
-		},		{
+		},
+		{
 			"Name": "BeyondWindEditor",
 			"Type": "Editor",
 			"LoadingPhase": "PostEngineInit",
 			"AdditionalDependencies": [
 				"Engine"
 			]
-		},{
+		},
+		{
 			"Name": "Automatinator",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine"
+				"Engine",
+				"CoreUObject"
 			]
 		}
 	]
