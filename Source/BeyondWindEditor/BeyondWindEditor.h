@@ -8,7 +8,7 @@ class BEYONDWINDEDITOR_API  FBeyondWindEditorModule : public IModuleInterface {
 
 
 public:
-	void StartupModule();
-	void ShutdownModule();
-}
+	virtual void StartupModule() override;
+	virtual void ShutdownModule() override;
+};
 

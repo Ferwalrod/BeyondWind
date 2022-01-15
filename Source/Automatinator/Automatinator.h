@@ -7,6 +7,6 @@
 class AUTOMATINATOR_API FAutomatinatorModule : public IModuleInterface {
 
 public:
-	void StartupModule();
-	void ShutdownModule();
+	virtual void StartupModule() override;
+	virtual void ShutdownModule() override;
 };

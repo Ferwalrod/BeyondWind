@@ -3,7 +3,7 @@
 #include "Automatinator.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_GAME_MODULE(FAutomatinatorModule, Automatinator)
+
 
 void FAutomatinatorModule::StartupModule() {
 
@@ -11,3 +11,4 @@ void FAutomatinatorModule::StartupModule() {
 void FAutomatinatorModule::ShutdownModule() {
 
 }
+IMPLEMENT_GAME_MODULE(FAutomatinatorModule, Automatinator);

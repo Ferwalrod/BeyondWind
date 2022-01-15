@@ -9,7 +9,7 @@ public class Automatinator : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay"});
-		PublicDependencyModuleNames.Add("BeyondWind");
+		//PublicDependencyModuleNames.Add("BeyondWind");
 		//PublicDependencyModuleNames.Add("BeyondWindEditor");
 		PublicDependencyModuleNames.AddRange(new string[] { "UnrealEd", "XmlParser", "EditorStyle", "Slate", "SlateCore", "GraphEditor", "AppFramework", "PropertyEditor" });
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
