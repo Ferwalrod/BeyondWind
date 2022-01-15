@@ -2,14 +2,16 @@
 
 using UnrealBuildTool;
 
-public class BeyondWind : ModuleRules
+public class Automatinator : ModuleRules
 {
-	public BeyondWind(ReadOnlyTargetRules Target) : base(Target)
+	public Automatinator(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "Slate", "SlateCore" });
-
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay"});
+		PublicDependencyModuleNames.Add("BeyondWind");
+		//PublicDependencyModuleNames.Add("BeyondWindEditor");
+		PublicDependencyModuleNames.AddRange(new string[] { "UnrealEd", "XmlParser", "EditorStyle", "Slate", "SlateCore", "GraphEditor", "AppFramework", "PropertyEditor" });
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI

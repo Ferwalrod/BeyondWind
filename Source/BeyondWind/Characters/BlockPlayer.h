@@ -22,11 +22,14 @@ class BEYONDWIND_API ABlockPlayer : public ACharacter
 
 private:
 	//======================Internal variables and functions
+	FTimerHandle m_DelayTimer;
 	FTimeline m_TimeLine;
 	FTimerHandle m_PlaceTimer;
 	FTimerHandle m_RemoveTimer;
 	UCurveFloat* m_RotatingCurve;
 	FVector m_VCurrentAttachLoc;
+	bool m_bFlipFlop;
+	
 
 	//Same as PlaceBlockDown from BP
 	void StartPlacingBlocks();
@@ -37,9 +40,12 @@ private:
 	void StartRemovingBlocks();
 	void StopRemovingBlocks();
 
+	void OnDelayEnd();
+
 	UFUNCTION()
 	void OnBlendOut(UAnimMontage* AnimM, bool bInterrupted);
 
+	UFUNCTION()
 	void RotatingFunction(float alpha);
 
 public:
@@ -61,7 +67,7 @@ public:
 	TArray<TSubclassOf<ABaseBlock>> m_TAllBlocks;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", DisplayName = "Fly Tap Delay")
 	float m_fFlyTapDelay;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", DisplayName = "Fly Tap Delay")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", DisplayName = "Fly Tap Counter")
 	int m_iFlyTapCounter;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Attributes", DisplayName = "Target Rotation")
 	FRotator m_RTargetRotation;
@@ -88,7 +94,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void GetCrossAirLocation(FVector& CrossAirLoc_);
-	bool GetClickOnBlock(const FVector& _Target, FVector& Location_, FVector& Normal_, ABaseBlock* HitBlock_);
+	bool GetClickOnBlock(const FVector& _Target, FVector& Location_, FVector& Normal_, ABaseBlock*& HitBlock_);
 	
 	//Functions for Action and Axis Inputs
 

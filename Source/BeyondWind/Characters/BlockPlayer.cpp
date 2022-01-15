@@ -16,11 +16,12 @@
 #include "TimerManager.h"
 #include "Animation/AnimMontage.h"
 #include "UObject/ConstructorHelpers.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "BeyondWind/CrossAirHud.h"
 
 
 // Sets default values
-ABlockPlayer::ABlockPlayer()
+ABlockPlayer::ABlockPlayer() :m_bFlipFlop(true),m_fFlyTapDelay(1.f)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -80,7 +81,8 @@ void ABlockPlayer::OnBlendOut(UAnimMontage* AnimM, bool bInterrupted)
 
 void ABlockPlayer::RotatingFunction(float alpha)
 {
-	SetActorRotation(UKismetMathLibrary::RLerp(m_RCurrentRotation,m_RTargetRotation,alpha,false));
+	FRotator rot = FRotator(0.f, UKismetMathLibrary::RLerp(m_RCurrentRotation, m_RTargetRotation, alpha, false).Yaw, 0.f);
+	SetActorRotation(rot);
 }
 
 // Called when the game starts or when spawned
@@ -92,6 +94,8 @@ void ABlockPlayer::BeginPlay()
 	FOnTimelineFloat FloatLine;
 	FloatLine.BindUFunction(this, FName("RotatingFunction"));
 	m_TimeLine.AddInterpFloat(m_RotatingCurve, FloatLine);
+	m_TimeLine.SetLooping(false);
+	
 }
 
 // Called every frame
@@ -125,6 +129,12 @@ void ABlockPlayer::StopRemovingBlocks()
 	GetWorldTimerManager().ClearTimer(m_RemoveTimer);
 }
 
+
+void ABlockPlayer::OnDelayEnd()
+{
+	m_iFlyTapCounter = 0;
+	GetWorldTimerManager().ClearTimer(m_DelayTimer);
+}
 
 // Called to bind functionality to input
 void ABlockPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -162,7 +172,7 @@ void ABlockPlayer::GetCrossAirLocation(FVector& CrossAirLoc_)
 	}
 }
 
-bool ABlockPlayer::GetClickOnBlock(const FVector& _Target, FVector& Location_, FVector& Normal_, ABaseBlock* HitBlock_)
+bool ABlockPlayer::GetClickOnBlock(const FVector& _Target, FVector& Location_, FVector& Normal_, ABaseBlock*& HitBlock_)
 {
 	FHitResult Hit;
 	TArray<AActor*> arr;
@@ -222,12 +232,26 @@ void ABlockPlayer::LookUp(float value)
 
 void ABlockPlayer::MoveUp(float value)
 {
-
+	AddMovementInput(GetActorUpVector(), value);
 }
 
 void ABlockPlayer::StartJump()
 {
 	Jump();
+	m_iFlyTapCounter++;
+	if (m_iFlyTapCounter >= 2) {
+		if (m_bFlipFlop) {
+			m_bFlipFlop = false;
+			GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+		}
+		else {
+			m_bFlipFlop = true;
+			GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Walking);
+		}
+	}
+	else {
+		GetWorldTimerManager().SetTimer(m_DelayTimer, this, &ABlockPlayer::OnDelayEnd, m_fFlyTapDelay,false);
+	}
 }
 
 void ABlockPlayer::StopJump()
