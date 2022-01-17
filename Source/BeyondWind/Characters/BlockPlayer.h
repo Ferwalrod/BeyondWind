@@ -57,7 +57,6 @@ public:
 	USpringArmComponent* mc_SpringArm;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components", DisplayName = "Camera")
 	UCameraComponent* mc_Camera;
-
 	//Attributes
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Attributes", DisplayName = "Last Index")
 	int m_iLastIndex;
