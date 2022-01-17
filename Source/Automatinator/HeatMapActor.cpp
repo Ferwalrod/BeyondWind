@@ -9,7 +9,7 @@
 #include "Kismet/KismetStringLibrary.h"
 
 // Sets default values
-AHeatMapActor::AHeatMapActor()
+AHeatMapActor::AHeatMapActor(): m_iFPSUpper(60), m_iFPSLower(30)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -53,11 +53,11 @@ void AHeatMapActor::OnConstruction(const FTransform& Transform)
 			vPosition.InitFromString(left);
 			vPosition += FVector(50.f, 50.f, 50.f);
 			int iFPS = FCString::Atoi(*right);
-			if (iFPS >= 60)
+			if (iFPS >= m_iFPSUpper)
 			{
 				mc_FPSHighSquare->AddInstanceWorldSpace(FTransform(FRotator(0.f, 0.f, 0.f), vPosition, FVector(1.f, 1.f, 1.f)));
 			}
-			else if (iFPS < 60 && iFPS >= 30)
+			else if (iFPS < m_iFPSUpper && iFPS >= m_iFPSLower)
 			{
 				mc_FPSMidSquare->AddInstanceWorldSpace(FTransform(FRotator(0.f, 0.f, 0.f), vPosition, FVector(1.f, 1.f, 1.f)));
 			}

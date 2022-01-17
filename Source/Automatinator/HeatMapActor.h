@@ -27,9 +27,15 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Components", DisplayName = "FPS Low Square")
 	UInstancedStaticMeshComponent* mc_FPSLowSquare;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", DisplayName = "Upper")
+	int m_iFPSUpper;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", DisplayName = "Lower")
+	int m_iFPSLower;
+
+
 	UPROPERTY(EditAnywhere, Category="Attributes", DisplayName="Array Lines")
 	TArray<FString> m_TLines;
-	UPROPERTY(EditAnywhere, Category = "Attributes", DisplayName = "File Asset")
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Attributes", DisplayName = "File Asset")
 	UTxtFileAsset* m_pFileAsset;
 protected:
 	// Called when the game starts or when spawned
