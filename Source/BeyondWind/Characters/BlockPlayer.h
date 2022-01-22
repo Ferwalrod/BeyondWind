@@ -74,6 +74,8 @@ public:
 	FRotator m_RCurrentRotation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes", DisplayName = "Furthest Distance to click")
 	float m_fFurthestDistanceToClick;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Attributes", DisplayName = "Score")
+	int m_iScore;
 
 	APlayerController* PlayerControllerRef;
 	ACrossAirHud* m_pCrossAir;
